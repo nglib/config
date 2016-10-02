@@ -1,20 +1,31 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "declaration": true,
-    "stripInternal": true,
-    "experimentalDecorators": true,
+    "rootDir": ".",
+    "outDir": "dist",
+    "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
-    "outDir": "dist",
-    "rootDir": ".",
     "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": ["es5", "dom", "es2015.promise", "es2015.collection", "es2015.iterable"],
+    "declaration": true,
+    "stripInternal": true,
     "inlineSources": true,
-    "target": "es5",
-    "lib": ["es2015", "dom"],
-    "skipLibCheck": true
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@nglib/config": ["."]
+    }
   },
   "files": [
     "index.ts"
+  ],
+  "include": [
+    "./test/**/*.ts"
   ]
 }

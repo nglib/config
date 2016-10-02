@@ -5,6 +5,5 @@ export default {
     moduleName: 'nglib.config',
     globals: {
     	'@angular/core': 'ng.core'
-    },
-    plugins: []
+    }
 }
