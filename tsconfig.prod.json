@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": ".",
-    "outDir": "dist/config",
+    "outDir": "dist/prod",
     "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",

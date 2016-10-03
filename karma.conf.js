@@ -2,10 +2,6 @@ module.exports = function(config) {
     var configuration = {
         basePath: '.',
 
-        preprocessors: {
-            'dist/test/**/*.js': ['typescript']
-        },
-
         typescriptPreprocessor: {
             options: {
                 sourceMap: false,
@@ -16,7 +12,7 @@ module.exports = function(config) {
                 removeComments: true,
                 concatenateOutput: false
             },
-            
+
             transformPath: function(path) {
                 return path.replace(/\.ts$/, '.js');
             }
@@ -65,7 +61,6 @@ module.exports = function(config) {
         browsers: ['Chrome'],
         // Karma plugins loaded
         plugins: [
-            'karma-typescript-preprocessor',
             'karma-jasmine',
             //'karma-coverage',
             'karma-chrome-launcher'
@@ -81,7 +76,7 @@ module.exports = function(config) {
             }
         },
 
-        singleRun: false
+        singleRun: true
     };
 
     if (process.env.TRAVIS) {

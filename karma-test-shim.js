@@ -25,8 +25,7 @@ var packageNames = [
     'core',
     'http',
     'platform-browser-dynamic',
-    'platform-browser',
-    'platform-server'
+    'platform-browser'
 ];
 
 // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }
@@ -41,7 +40,7 @@ System.config({
     map: {
         'rxjs': 'node_modules/rxjs',
         '@angular': 'node_modules/@angular',
-        '@nglib/config' : 'dist/all/index'
+        '@nglib/config' : 'dist/dev/index'
     },
     packages: packages
 });

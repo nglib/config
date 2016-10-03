@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": ".",
-    "outDir": "dist/all",
+    "outDir": "dist/dev",
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",

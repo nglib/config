@@ -1,6 +1,6 @@
 export default {
-    entry: 'dist/config/index.js',
-    dest: 'dist/config/bundles/config.umd.js',
+    entry: 'dist/prod/index.js',
+    dest: 'dist/prod/bundles/config.umd.js',
     format: 'umd',
     moduleName: 'nglib.config',
     globals: {

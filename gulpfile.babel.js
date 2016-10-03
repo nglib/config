@@ -19,24 +19,19 @@ function tsc(tsconfig, done) {
       .on('close', done);
 }
 
-const DEST_FOLEDER = path.resolve(__dirname, 'dist');;
-const DEST_CONFIG = path.resolve(DEST_FOLEDER, 'config');
-const DEST_BUNDLES = path.resolve(DEST_CONFIG, 'bundles');
-const DEST_ALL = path.resolve(DEST_FOLEDER, 'all');
+const SOURCE = ['index.ts', 'src/**/*.ts', 'test/**/*.ts'];
+const DIST_FOLDER = path.resolve(__dirname, 'dist');
+const DEST_DEV = path.resolve(DIST_FOLDER, 'dev');
+const DEST_PROD = path.resolve(DIST_FOLDER, 'prod');
+const DEST_PROD_BUNDLES = path.resolve(DEST_PROD, 'bundles');
 
-gulp.task('clean:config', ['lint'], function (done) {
-    rimraf(DEST_CONFIG, done);
-});
-gulp.task('clean:all', ['lint'], function (done) {
-    rimraf(DEST_ALL, done);
-});
 gulp.task('clean', function (done) {
-    rimraf(DEST_FOLEDER, done);
+    rimraf(DIST_FOLDER, done);
 });
 
 gulp.task('lint', () => {
     const tslintConfig = require('./tslint.json');
-    return gulp.src(['index.ts', 'src/**/*.ts', 'test/**/*.ts'])
+    return gulp.src(SOURCE)
         .pipe(tslint({
             tslint: require('tslint').default,
             configuration: tslintConfig,
@@ -45,39 +40,59 @@ gulp.task('lint', () => {
         .pipe(tslint.report({emitError: true}));
 });
 
-gulp.task('tsc:config', ['lint', 'clean:config'], (done) => {
-    tsc('tsconfig.build.json', done);
+gulp.task('clean:dev', ['lint'], function (done) {
+    rimraf(DEST_DEV, done);
 });
 
-gulp.task('tsc:all', ['clean:all', 'lint'], (done) => {
+gulp.task('clean:prod', ['lint'], function (done) {
+    rimraf(DEST_PROD, done);
+});
+
+gulp.task('tsc:dev', ['clean:dev'], (done) => {
     tsc('tsconfig.json', done);
 });
 
-gulp.task('tsc', ['tsc:config', 'tsc:all']);
-
-gulp.task('rollup', ['tsc:config'], (done) => {
-    childProcess
-      .spawn(
-          path.normalize(platformScriptPath(`${__dirname}/node_modules/.bin/rollup`)),
-          ['-c', path.join(__dirname, "rollup.config.js")],
-          {stdio: 'inherit'})
-      .on('close', done);
+gulp.task('tsc:prod', ['clean:prod'], (done) => {
+    tsc('tsconfig.prod.json', done);
 });
 
-gulp.task('copy', ['rollup'], () => {
-    return gulp.src(['./README.md', './package.json'])
-        .pipe(gulp.dest(DEST_CONFIG));
+gulp.task('dev', ['tsc:dev'], () => {
+    gulp.watch(SOURCE, {cwd: './'}, ['tsc:dev']);
 });
 
-gulp.task('build', ['lint', 'tsc:config', 'rollup', 'copy'], () => {
-    return gulp.src(path.resolve(DEST_BUNDLES, 'config.umd.js'))
+gulp.task('bundle', ['tsc:prod'], (done) => {
+    childProcess.spawn(
+        path.normalize(platformScriptPath(`${__dirname}/node_modules/.bin/rollup`)),
+        ['-c', path.join(__dirname, "rollup.config.js")],
+        {stdio: 'inherit'}).on('close', done);
+});
+
+gulp.task('prod', ['test', 'bundle'], (done) => {
+    gulp.src(path.resolve(DEST_PROD_BUNDLES, 'config.umd.js'))
         .pipe(uglify('config.umd.min.js'))
-        .pipe(gulp.dest(DEST_BUNDLES));
+        .pipe(gulp.dest(DEST_PROD_BUNDLES))
+        .on('end', () => {
+            gulp.src(['./README.md', './package.json'])
+            .pipe(gulp.dest(DEST_PROD))
+            .on('end', () => {
+                done();
+            });
+        });
 });
 
-gulp.task('watch', () => {
-    gulp.watch(['index.ts', 'src/**/*.ts', 'test/**/*.ts'], {cwd: './'}, ['rollup', 'tsc:all']);
+gulp.task('test', ['tsc:dev'], (done) => {
+    childProcess.spawn(
+        path.normalize(platformScriptPath(`${__dirname}/node_modules/.bin/karma`)),
+        ['start', path.join(__dirname, "karma.conf.js")],
+        {stdio: 'inherit', cwd: process.cwd()})
+        .on('exit', (code) => {
+            if(code == 0) {
+                done();
+            }
+            else {
+                done(code);
+            }
+        });
 });
 
-
-gulp.task('default', ['build']);
+gulp.task('default', ['dev']);
