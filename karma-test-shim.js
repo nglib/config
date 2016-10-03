@@ -41,7 +41,7 @@ System.config({
     map: {
         'rxjs': 'node_modules/rxjs',
         '@angular': 'node_modules/@angular',
-        '@nglib/config' : 'dist/bundles/config.umd'
+        '@nglib/config' : 'dist/all/index'
     },
     packages: packages
 });

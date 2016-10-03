@@ -9,7 +9,7 @@ export class ConfigPipe implements PipeTransform {
         this._config = config;
     }
 
-    transform(value: string) {
-        return this._config.get(value);
+    transform(value: any, defaultValue?: any) {
+        return this._config.get(value, defaultValue);
     }
 }

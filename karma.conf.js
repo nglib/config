@@ -49,8 +49,8 @@ module.exports = function(config) {
             { pattern: 'dist/**/*.js', included: false, watched: true },
 
             // paths to support debugging with source maps in dev tools
-            //{ pattern: 'src/**/*.ts', included: false, watched: false },
-            //{ pattern: 'dist/**/*.js.map', included: false, watched: false },
+            { pattern: 'src/**/*.ts', included: false, watched: false },
+            { pattern: 'dist/**/*.js.map', included: false, watched: false },
             'karma-test-shim.js'
         ],
         // proxied base paths
@@ -81,7 +81,7 @@ module.exports = function(config) {
             }
         },
 
-        singleRun: true
+        singleRun: false
     };
 
     if (process.env.TRAVIS) {

@@ -2,9 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": ".",
-    "outDir": "dist/all",
+    "outDir": "dist/config",
     "target": "es5",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
@@ -17,9 +17,9 @@
     "stripInternal": true,
     "inlineSources": true,
     "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
-    "paths": {
-      "@nglib/config": ["."]
-    }
-  }
+    "skipLibCheck": true
+  },
+  "files": [
+    "index.ts"
+  ]
 }

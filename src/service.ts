@@ -12,11 +12,15 @@ export class ConfigService {
         this._items = items || {};
     }
 
-    get(path: string, defaultValue?: any) {
+    get(path: string, defaultValue: any = null) {
         let value = this._items;
 
-        if (path == null) {
+        if (path == null || path === '') {
             return value;
+        }
+
+        if(typeof path !== 'string') {
+            throw new TypeError('The path must be a string');
         }
 
         if(path in value) {
