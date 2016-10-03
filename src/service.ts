@@ -1,18 +1,22 @@
-import { Injectable, Inject, Provider } from "@angular/core";
+import { Injectable, Inject, Provider, OpaqueToken } from "@angular/core";
 
 export interface IConfigInterface {
-    [name: string]: any;
+    [K: string]: any;
 }
+
+export const CONFIG = new OpaqueToken("IConfigInterface");
 
 @Injectable()
 export class ConfigService {
     private _items: IConfigInterface;
 
-    constructor(items: IConfigInterface) {
+    constructor(@Inject(CONFIG) items: IConfigInterface) {
         this._items = items || {};
     }
 
-    get(path: string, defaultValue: any = null) {
+    get(path: string, defaultValue?: any) {
+        if(arguments.length == 1) defaultValue = null;
+
         let value = this._items;
 
         if (path == null || path === '') {
@@ -27,18 +31,19 @@ export class ConfigService {
             return value[path];
         }
         const keys = path.split('.');
+        let notExist = false;
 
         for (let i = 0, len = keys.length; i < len; i++) {
             const key = keys[i];
 
-            if (!value || !Object.prototype.hasOwnProperty.call(value, key)) {
-                value = undefined;
+            if (!Object.prototype.hasOwnProperty.call(value, key)) {
+                notExist = true;
                 break;
             }
             value = value[key];
         }
 
-        return value !== undefined ? value : defaultValue;
+        return notExist === false ? value : defaultValue;
     }
 
     set(path: string, value: any) {
@@ -49,7 +54,7 @@ export class ConfigService {
             const key = keys[i];
 
             if(i !== len - 1) {
-                if (!Object.prototype.hasOwnProperty.call(nested, key)) nested[key] = {};
+                if (!Object.prototype.hasOwnProperty.call(nested, key) || typeof nested[key] !== 'object' || nested[key] == null) nested[key] = {};
                 nested = nested[key];
             }
             else {
@@ -59,6 +64,10 @@ export class ConfigService {
     }
 
     has(path: string) {
+        if (path == null || path === '') {
+            return false;
+        }        
+        
         const keys:string[] = path.split('.');
         let value = this._items;
 

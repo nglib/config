@@ -10,6 +10,7 @@ export class ConfigPipe implements PipeTransform {
     }
 
     transform(value: any, defaultValue?: any) {
+        if(arguments.length == 1) defaultValue = null;
         return this._config.get(value, defaultValue);
     }
 }
