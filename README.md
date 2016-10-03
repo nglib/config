@@ -1,6 +1,21 @@
 # @nglib/config
 Angular 2 module for store and provide a configuration
 
+[![dep][dep-image]][dep-url]
+[![npm][npm-image]][npm-url]
+[![downloads][downloads-image]][downloads-url]
+
+[travis-image]: https://img.shields.io/travis/stenin-nikita/module-promise.svg?style=flat
+[travis-url]: https://travis-ci.org/stenin-nikita/@nglib/config
+[dep-image]: https://david-dm.org/nglib/config.svg?style=flat
+[dep-url]: https://david-dm.org/nglib/config
+[npm-image]: https://img.shields.io/npm/v/@nglib/config.svg?style=flat
+[npm-url]: https://npmjs.org/package/@nglib/config
+[downloads-image]: https://img.shields.io/npm/dm/@nglib/config.svg?style=flat
+[downloads-url]: https://npmjs.org/package/@nglib/config
+
+[Live Example](http://plnkr.co/edit/EmqtxN5EHOFPIjrdD6km?p=preview)
+
 ## Installation
 
 `npm install @nglib/config --save`
