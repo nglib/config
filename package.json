@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/nglib/config/blob/master/README.md",
   "scripts": {
-    "dev": "gulp dev",
+    "dev": "gulp tsc:dev",
+    "dev:w": "gulp dev",
     "prod": "gulp prod",
     "test": "karma start karma.conf.js --no-auto-watch",
     "test:w": "karma start karma.conf.js --auto-watch --single-run false"

@@ -1,17 +1,21 @@
 # @nglib/config
 Angular 2 module for store and provide a configuration
 
+[![travis][travis-image]][travis-url]
 [![dep][dep-image]][dep-url]
 [![npm][npm-image]][npm-url]
 [![downloads][downloads-image]][downloads-url]
+[![license][license-image]][license-url]
 
-[travis-image]: https://img.shields.io/travis/stenin-nikita/module-promise.svg?style=flat
-[travis-url]: https://travis-ci.org/stenin-nikita/@nglib/config
-[dep-image]: https://david-dm.org/nglib/config.svg?style=flat
+[travis-image]: https://travis-ci.org/nglib/config.svg?branch=master
+[travis-url]: https://travis-ci.org/nglib/config
+[dep-image]: https://david-dm.org/nglib/config.svg
 [dep-url]: https://david-dm.org/nglib/config
-[npm-image]: https://img.shields.io/npm/v/@nglib/config.svg?style=flat
+[npm-image]: https://img.shields.io/npm/v/@nglib/config.svg
+[license-image]: https://img.shields.io/badge/license-MIT-blue.svg
+[license-url]: https://github.com/nglib/config/blob/master/LICENSE
 [npm-url]: https://npmjs.org/package/@nglib/config
-[downloads-image]: https://img.shields.io/npm/dm/@nglib/config.svg?style=flat
+[downloads-image]: https://img.shields.io/npm/dm/@nglib/config.svg
 [downloads-url]: https://npmjs.org/package/@nglib/config
 
 [Live Example](http://plnkr.co/edit/EmqtxN5EHOFPIjrdD6km?p=preview)
