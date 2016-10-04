@@ -1,13 +1,12 @@
 {
   "name": "@nglib/config",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Angular 2 module for store and provide a configuration",
   "main": "bundles/config.umd.js",
   "module": "index.js",
   "typings": "index.d.ts",
   "keywords": [
     "angular2",
-    "angular",
     "config"
   ],
   "repository": {
