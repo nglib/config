@@ -2,6 +2,7 @@
 Angular 2 module for store and provide a configuration
 
 [![travis][travis-image]][travis-url]
+[![coverage][coveralls-image]][coveralls-url]
 [![dep][dep-image]][dep-url]
 [![npm][npm-image]][npm-url]
 [![downloads][downloads-image]][downloads-url]
@@ -9,6 +10,8 @@ Angular 2 module for store and provide a configuration
 
 [travis-image]: https://travis-ci.org/nglib/config.svg?branch=master
 [travis-url]: https://travis-ci.org/nglib/config
+[coveralls-image]: https://coveralls.io/repos/github/nglib/config/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/nglib/config?branch=master
 [dep-image]: https://david-dm.org/nglib/config.svg
 [dep-url]: https://david-dm.org/nglib/config
 [npm-image]: https://img.shields.io/npm/v/@nglib/config.svg
