@@ -1,24 +1,17 @@
 module.exports = function(config) {
     var configuration = {
         basePath: '.',
+        frameworks: ['jasmine'],
 
-        typescriptPreprocessor: {
-            options: {
-                sourceMap: false,
-                target: 'ES5',
-                module: 'amd',
-                noImplicitAny: true,
-                noResolve: true,
-                removeComments: true,
-                concatenateOutput: false
-            },
-
-            transformPath: function(path) {
-                return path.replace(/\.ts$/, '.js');
-            }
+        preprocessors: {
+            'dist/dev/src/**/*.js': ['coverage']
         },
 
-        frameworks: ['jasmine'],
+        coverageReporter: {
+            type: 'lcov',
+            dir: 'coverage/'
+        },
+
         files: [
             'node_modules/core-js/client/shim.min.js',
 
@@ -56,18 +49,19 @@ module.exports = function(config) {
         },
         port: 9876,
         logLevel: config.LOG_INFO,
-        colors: true,
         autoWatch: true,
+        colors: true,
         browsers: ['Chrome'],
         // Karma plugins loaded
         plugins: [
             'karma-jasmine',
-            //'karma-coverage',
+            'karma-coverage',
+            'karma-coveralls',
             'karma-chrome-launcher'
         ],
 
         // Coverage reporter generates the coverage
-        reporters: ['progress'],
+        reporters: ['progress', 'coverage', 'coveralls'],
 
         customLaunchers: {
             Chrome_travis_ci: {

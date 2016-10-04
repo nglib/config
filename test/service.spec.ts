@@ -13,6 +13,42 @@ export function main() {
             }
         };
 
+        describe('#construcor', function() {
+            it('should return an empty object', function() {
+                var service: ConfigService;
+                
+                service = new ConfigService(null);
+                expect(service.all()).toEqual({});
+
+                service = new ConfigService(undefined);
+                expect(service.all()).toEqual({});
+            });
+
+            describe('#error value for CONFIG provider', () => {
+                function provideBadValue(value) {
+                    TestBed.configureTestingModule({
+                        providers: [
+                            provideConfig(value)
+                        ]
+                    });
+                    return getTestBed().get(ConfigService);
+                }
+
+                it('should throw an exception for string', function() {
+                    expect(() => provideBadValue('string')).toThrow();
+                });
+
+                it('should throw an exception for number', function() {
+                    expect(() => provideBadValue(0)).toThrow();
+                    expect(() => provideBadValue(1)).toThrow();
+                });
+
+                it('should throw an exception for function', function() {
+                    expect(() => provideBadValue(function(){})).toThrow();
+                });
+            });
+        });
+
         describe('#injectables', () => {
             describe('#injection via CONFIG provider', () => {
                 var service: ConfigService;
@@ -34,7 +70,7 @@ export function main() {
                 });
             });
 
-            describe('#njection via provideConfig', () => {
+            describe('#injection via provideConfig', () => {
                 var service: ConfigService;
                 var injector: Injector;
 
@@ -50,6 +86,25 @@ export function main() {
                 it('should be an instanceof ConfigService', function() {
                     service = injector.get(ConfigService);
                     expect(service instanceof ConfigService).toEqual(true);
+                });
+            });
+
+            describe('#provideConfig', () => {
+                var service: ConfigService;
+                var injector: Injector;
+
+                beforeEach(() => {
+                    TestBed.configureTestingModule({
+                        providers: [
+                            provideConfig()
+                        ]
+                    });
+                    injector = getTestBed();
+                });
+
+                it('should return an empty object', function() {
+                    service = injector.get(ConfigService);
+                    expect(service.all()).toEqual({});
                 });
             });
         });
@@ -220,6 +275,5 @@ export function main() {
                 expect(service.all()).toBe(configObject);
             });
         });
-
     });
 }

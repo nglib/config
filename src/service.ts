@@ -11,6 +11,10 @@ export class ConfigService {
     private _items: IConfigInterface;
 
     constructor(@Inject(CONFIG) items: IConfigInterface) {
+        if(items != null && typeof items !== 'object') {
+            throw new TypeError('The value should implement the IConfigInterface');
+        }
+
         this._items = items || {};
     }
 
